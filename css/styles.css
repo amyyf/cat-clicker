@@ -1,0 +1,33 @@
+body {
+  background-color: black;
+  color: white;
+  font-size: 18px;
+}
+
+h1,
+h2 {
+  font-family: 'Luckiest Guy', cursive;
+  text-align: center;
+  margin: .5em auto .25em auto;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 200;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+}
+
+img {
+  max-height: 75vh;
+  display: block;
+  margin: auto;
+}
