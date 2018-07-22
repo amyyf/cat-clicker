@@ -1,14 +1,3 @@
-// const cat = document.getElementById('cat-photo');
-// const clickCounter = document.getElementById('click-counter');
-//
-// clickCounter.textContent = 0;
-
-// cat.addEventListener('click', function () {
-//   let count = clickCounter.textContent;
-//   count++;
-//   clickCounter.textContent = count;
-// });
-
 const Cat = function (name, photo, description) {
   this.name = name;
   this.photo = photo;
@@ -28,13 +17,14 @@ const ron = new Cat('Ron', 'img/tabbycat.png', 'tabby');
 
 const generateCat = function (cat) {
   const section = document.createElement('section');
+  const catArea = document.getElementById('cat-area');
   section.classList.add('cat');
   section.innerHTML = `
     <h3>${cat.name}</h3>
     <p>Number of clicks: <span id="click-counter">${cat.clicks}</span></p>
     <img src='${cat.photo}' alt=${cat.description} cat' id=${cat.description}-cat' />
   `;
-  document.body.append(section);
+  catArea.appendChild(section);
 };
 
 generateCat(rey);
