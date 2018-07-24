@@ -26,5 +26,23 @@ Cat.prototype.countClicks = function () {
   clickCounter.textContent = count;
 };
 
-const rey = new Cat('Rey', 'img/calicocat.png', 'calico').generateCat();
-const ron = new Cat('Ron', 'img/tabbycat.png', 'tabby').generateCat();
+const rey = new Cat('Rey', 'img/calicocat.png', 'calico');
+const ron = new Cat('Ron', 'img/tabbycat.png', 'tabby');
+const tigger = new Cat('Tigger', 'img/tigercat.png', 'tiger');
+const simon = new Cat('Simon', 'img/persiancat.png', 'persian');
+const scratchy = new Cat('Scratchy', 'img/tuxedocat.png', 'tuxedo');
+let catList = [rey, ron, tigger, simon, scratchy];
+
+(function createList (catList) {
+  const section = document.getElementById('cat-list');
+  catList.forEach(function (cat) {
+    const li = document.createElement('li');
+    li.innerHTML = `<li>${cat.name}</li>`;
+    section.appendChild(li);
+    li.addEventListener('click', function () {
+      const catArea = document.getElementById('cat-area');
+      catArea.innerHTML = '';
+      cat.generateCat();
+    });
+  });
+})(catList);
