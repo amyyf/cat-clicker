@@ -34,13 +34,13 @@ const scratchy = new Cat('Scratchy', 'img/tuxedocat.png', 'tuxedo');
 let catList = [rey, ron, tigger, simon, scratchy];
 
 (function createList (catList) {
+  const catArea = document.getElementById('cat-area');
   const section = document.getElementById('cat-list');
   catList.forEach(function (cat) {
     const li = document.createElement('li');
-    li.innerHTML = `<li>${cat.name}</li>`;
+    li.textContent = cat.name;
     section.appendChild(li);
     li.addEventListener('click', function () {
-      const catArea = document.getElementById('cat-area');
       catArea.innerHTML = '';
       cat.generateCat();
     });

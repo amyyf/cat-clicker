@@ -22,13 +22,32 @@ h2 {
 }
 
 p {
-  font-family: 'Raleway', sans-serif;
   text-align: center;
+}
+
+.container {
+  display: flex;
+}
+
+#cat-list-section {
+  flex: 1 1 15em;
+}
+
+#cat-list {
+  list-style: none;
+  font-size: 1.5em;
+  margin: 1em;
+}
+
+#cat-list * {
+  padding: .5em;
+  font-family: 'Raleway', sans-serif;
 }
 
 #cat-area {
   display: flex;
   flex-direction: row;
+  flex: 2 2 auto;
 }
 
 .cat {
@@ -36,6 +55,11 @@ p {
   flex-direction: column;
   align-items: center;
   margin: 1em;
+  font-family: 'Raleway', sans-serif;
+}
+
+.cat h3 {
+  font-style: italic;
 }
 
 .cat img {
