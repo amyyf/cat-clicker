@@ -27,30 +27,31 @@ p {
 
 .container {
   display: flex;
+  max-width: 750px;
+  margin: auto;
 }
 
 #cat-list-section {
   flex: 1 1 15em;
+  font-family: 'Raleway', sans-serif;
+  margin: 1em;
 }
 
 #cat-list {
   list-style: none;
-  font-size: 1.5em;
-  margin: 1em;
+  font-size: 1.25em;
+  padding-left: 0;
 }
 
 #cat-list * {
   padding: .5em;
-  font-family: 'Raleway', sans-serif;
 }
 
-/*#cat-area {
-  display: flex;
-  flex-direction: row;
-  flex: 2 2 auto;
-}*/
+#cat-list li:hover {
+  cursor: pointer;
+}
 
-.cat {
+#cat-area {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,11 +59,16 @@ p {
   font-family: 'Raleway', sans-serif;
 }
 
-.cat h3 {
-  font-style: italic;
+#cat-area img {
+  max-width: 100%;
+  max-height: 50vh;
 }
 
-.cat img {
-  max-width: 100%;
-  max-height: 75vh;
+#cat-area img:hover {
+  cursor: pointer;
+}
+
+#cat-area h3 {
+  font-style: italic;
+  margin-bottom: 0;
 }
