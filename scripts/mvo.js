@@ -25,8 +25,11 @@
       });
     },
     // countClicks function gives clicks to model and to view
-    countClicks: function () {
-      console.log('clicked');
+    countClicks: function (cat) {
+      let count = cat.clicks;
+      count++;
+      cat.clicks = count;
+      view.updateClicks(count);
     },
 
     // gives cat data to view - catlist
@@ -41,26 +44,34 @@
   const view = {
     // render default cat
     init: function () {
+      this.catArea = document.getElementById('cat-area');
       console.log('view initialized');
     },
-    // select cat through catlist
+    // render catlist
+
 
     // render selected cat
-    render: function (cat) {
-      const catArea = document.getElementById('cat-area');
+    renderCat: function (cat) {
       const section = document.createElement('section');
       section.classList.add('cat');
       section.innerHTML = `
         <h3>${cat.name}</h3>
-        <p>Number of clicks: <span id="${cat.name}-click-counter">${cat.clicks}</span></p>
+        <p>Number of clicks: <span id="click-counter">${cat.clicks}</span></p>
         <img src='${cat.photo}' alt='${cat.description} cat' id='${cat.description}-cat' />
       `;
-      catArea.appendChild(section);
-      catArea.addEventListener('click', octopus.countClicks.bind(this));
+      this.catArea.appendChild(section);
+      this.catArea.addEventListener('click', function (e) {
+        octopus.countClicks(cat);
+      });
+    },
+    updateClicks: function (count) {
+        const clickCounter = document.getElementById('click-counter');
+        clickCounter.textContent = count;
     }
+
   }
+  octopus.init();
 
   octopus.newCat('Rey', 'img/calicocat.png', 'calico');
-  view.render(model.catList[0])
-  octopus.init();
+  view.renderCat(model.catList[0])
 })();
