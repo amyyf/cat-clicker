@@ -1,4 +1,4 @@
-(function() {
+(function () {
   const model = {
     catList: [],
     /* receives catArray from octopus, populates catList data structure as an array of objects, and returns it to octopus for further use */
@@ -13,7 +13,7 @@
       }
       return this.catList;
     }
-  }
+  };
 
   const octopus = {
     // initializes the model
@@ -43,8 +43,14 @@
     setCurrentCat: function (selectedCat) {
       this.currentCat = selectedCat;
       view.renderCat(this.currentCat);
+    },
+
+    isAdminPanelVisible: false,
+
+    toggleAdminPanel: function () {
+      this.isAdminPanelVisible = !this.isAdminPanelVisible;
     }
-  }
+  };
 
   const view = {
     // render list of cat names and default cat
@@ -54,6 +60,8 @@
       this.renderCatList(catList);
       this.renderCat(firstCat);
       this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
+      this.adminButton = document.getElementById('admin');
+      this.adminButton.addEventListener('click', octopus.toggleAdminPanel.bind(octopus));
     },
 
     // render catlist on page - happens once
@@ -82,7 +90,8 @@
       const clickCounter = document.getElementById('click-counter');
       clickCounter.textContent = count;
     }
-  }
+
+  };
 
   octopus.init();
 })();
