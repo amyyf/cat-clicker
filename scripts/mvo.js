@@ -45,10 +45,11 @@
       view.renderCat(this.currentCat);
     },
 
-    isAdminPanelVisible: false,
+    isAdminFormVisible: false,
 
-    toggleAdminPanel: function () {
-      this.isAdminPanelVisible = !this.isAdminPanelVisible;
+    toggleAdminForm: function () {
+      this.isAdminFormVisible = !this.isAdminFormVisible;
+      view.renderAdminForm(this.isAdminFormVisible);
     }
   };
 
@@ -56,12 +57,13 @@
     // render list of cat names and default cat
     init: function (firstCat, catList) {
       this.catArea = document.getElementById('cat-area');
+      this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
       this.listArea = document.getElementById('cat-list');
+      this.adminForm = document.getElementById('admin-form');
+      this.adminButton = document.getElementById('admin');
+      this.adminButton.addEventListener('click', octopus.toggleAdminForm.bind(octopus));
       this.renderCatList(catList);
       this.renderCat(firstCat);
-      this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
-      this.adminButton = document.getElementById('admin');
-      this.adminButton.addEventListener('click', octopus.toggleAdminPanel.bind(octopus));
     },
 
     // render catlist on page - happens once
@@ -89,6 +91,10 @@
     updateClicks: function (count) {
       const clickCounter = document.getElementById('click-counter');
       clickCounter.textContent = count;
+    },
+
+    renderAdminForm: function (boolean) {
+      this.adminForm.classList.toggle('hidden');
     }
 
   };

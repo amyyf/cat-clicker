@@ -72,3 +72,12 @@ p {
   font-style: italic;
   margin-bottom: 0;
 }
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
