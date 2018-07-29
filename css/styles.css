@@ -74,8 +74,21 @@ p {
 }
 
 .admin-form {
+  background-color: rgb(25, 25, 25);
   display: flex;
   flex-direction: column;
+  margin: .5em;
+}
+
+.admin-form label {
+  padding: .5em;
+}
+
+.button-div {
+  display: flex;
+  flex-direction: row;
+  padding: .5em;
+  width: 10em;
 }
 
 .hidden {
