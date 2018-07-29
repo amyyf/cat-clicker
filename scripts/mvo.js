@@ -43,25 +43,33 @@
     setCurrentCat: function (selectedCat) {
       this.currentCat = selectedCat;
       view.renderCat(this.currentCat);
+      view.populateAdminForm();
     },
 
     isAdminFormVisible: false,
 
     toggleAdminForm: function () {
       this.isAdminFormVisible = !this.isAdminFormVisible;
-      view.renderAdminForm(this.isAdminFormVisible);
+      view.showAdminForm();
+      view.populateAdminForm();
     }
+
   };
 
   const view = {
     // render list of cat names and default cat
     init: function (firstCat, catList) {
       this.catArea = document.getElementById('cat-area');
-      this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
       this.listArea = document.getElementById('cat-list');
       this.adminForm = document.getElementById('admin-form');
       this.adminButton = document.getElementById('admin');
+      this.submitButton = document.getElementById('submit');
+      this.nameInput = document.getElementById('cat-name');
+      this.picInput = document.getElementById('cat-pic-url');
+      this.clickInput = document.getElementById('click-num');
+      this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
       this.adminButton.addEventListener('click', octopus.toggleAdminForm.bind(octopus));
+      // this.submitButton.addEventListener('click', octopus.updateCat.bind(octopus));
       this.renderCatList(catList);
       this.renderCat(firstCat);
     },
@@ -93,8 +101,14 @@
       clickCounter.textContent = count;
     },
 
-    renderAdminForm: function (boolean) {
+    showAdminForm: function () {
       this.adminForm.classList.toggle('hidden');
+    },
+
+    populateAdminForm: function () {
+      this.nameInput.value = octopus.currentCat.name;
+      this.picInput.value = octopus.currentCat.photo;
+      this.clickInput.value = octopus.currentCat.clicks;
     }
 
   };
