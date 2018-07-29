@@ -16,14 +16,6 @@
   }
 
   const octopus = {
-    // this function is called by the view when it renders a cat
-    countClicks: function (cat) {
-      let count = cat.clicks;
-      count++;
-      cat.clicks = count;
-      view.updateClicks(count);
-    },
-
     // initializes the model
     init: function () {
       const catList = model.init([
@@ -33,8 +25,24 @@
         ['Simon', 'img/persiancat.png', 'persian'],
         ['Scratchy', 'img/tuxedocat.png', 'tuxedo']
       ]);
+      // create a way of holding the current cat
+      this.currentCat = catList[0];
       // initializes the view with data from the model - the first cat displays as default
-      view.init(catList[0], catList);
+      view.init(this.currentCat, catList);
+    },
+
+    // this function is called by an event listener added in the view, identifies the current cat to work properly
+    countClicks: function () {
+      let count = this.currentCat.clicks;
+      count++;
+      this.currentCat.clicks = count;
+      view.updateClicks(count);
+    },
+
+    // this function is called by an event listener added to each cat when rendered by the view
+    setCurrentCat: function (selectedCat) {
+      this.currentCat = selectedCat;
+      view.renderCat(this.currentCat);
     }
   }
 
@@ -45,38 +53,34 @@
       this.listArea = document.getElementById('cat-list');
       this.renderCatList(catList);
       this.renderCat(firstCat);
+      this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
     },
-    // render catlist on page
+
+    // render catlist on page - happens once
     renderCatList: function (list) {
       for (let cat of list) {
         const li = document.createElement('li');
         li.textContent = cat.name;
         li.addEventListener('click',
-          this.renderCat.bind(this, cat) // passes in the view as value of 'this' and the specific cat as the arg
+          octopus.setCurrentCat.bind(octopus, cat) // passes 'octopus' in order to access currentCat method/prop
         );
         this.listArea.appendChild(li);
       }
     },
 
-    // render selected cat
+    // render selected cat - rerun HTML every time current cat changes
     renderCat: function (cat) {
       this.catArea.innerHTML = `
         <h3>${cat.name}</h3>
         <p>Number of clicks: <span id="click-counter">${cat.clicks}</span></p>
         <img src='${cat.photo}' alt='${cat.description} cat' id='${cat.description}-cat' />
       `;
-      // remove previous cat's event listener
-      this.catArea.removeEventListener('click', this.activeListener);
-      this.activeListener = function (e) { // activeListener is a method created on the view
-        octopus.countClicks(cat); // octopus is what actually handles the counting
-      }
-      // add event listener to new cat
-      this.catArea.addEventListener('click', this.activeListener);
     },
 
+    // needs to get clickCounter each time since it is dynamically created
     updateClicks: function (count) {
-        const clickCounter = document.getElementById('click-counter');
-        clickCounter.textContent = count;
+      const clickCounter = document.getElementById('click-counter');
+      clickCounter.textContent = count;
     }
   }
 
