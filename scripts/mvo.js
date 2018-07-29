@@ -52,6 +52,15 @@
       this.isAdminFormVisible = !this.isAdminFormVisible; // always sets the opposite
       view.showAdminForm();
       view.populateAdminForm();
+    },
+
+    updateCat: function (catName, catPic, catClicks) {
+      this.currentCat.name = catName;
+      this.currentCat.photo = catPic;
+      this.currentCat.clicks = catClicks;
+      view.renderCat(this.currentCat);
+      view.renderCatList(model.catList);
+      view.showAdminForm();
     }
 
   };
@@ -74,7 +83,12 @@
         e.preventDefault();
         view.showAdminForm(); // this works because 'cancel' can only be clicked when admin form is visible
       });
-      // this.submitButton.addEventListener('click', octopus.updateCat.bind(octopus));
+      this.submitButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        octopus.updateCat(
+          view.nameInput.value, view.picInput.value, view.clickInput.value
+        );
+      });
       // render list of cat names and default cat
       this.renderCatList(catList);
       this.renderCat(firstCat);
@@ -82,6 +96,7 @@
 
     // render catlist on page - happens once
     renderCatList: function (list) {
+      this.listArea.innerHTML = '';
       for (let cat of list) {
         const li = document.createElement('li');
         li.textContent = cat.name;
