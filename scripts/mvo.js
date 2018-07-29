@@ -49,7 +49,7 @@
     isAdminFormVisible: false,
 
     toggleAdminForm: function () {
-      this.isAdminFormVisible = !this.isAdminFormVisible;
+      this.isAdminFormVisible = !this.isAdminFormVisible; // always sets the opposite
       view.showAdminForm();
       view.populateAdminForm();
     }
@@ -57,19 +57,25 @@
   };
 
   const view = {
-    // render list of cat names and default cat
+    // initialize variable names for DOM elements and set event listeners
     init: function (firstCat, catList) {
       this.catArea = document.getElementById('cat-area');
       this.listArea = document.getElementById('cat-list');
       this.adminForm = document.getElementById('admin-form');
       this.adminButton = document.getElementById('admin');
+      this.cancelButton = document.getElementById('cancel');
       this.submitButton = document.getElementById('submit');
       this.nameInput = document.getElementById('cat-name');
       this.picInput = document.getElementById('cat-pic-url');
       this.clickInput = document.getElementById('click-num');
       this.catArea.addEventListener('click', octopus.countClicks.bind(octopus));
       this.adminButton.addEventListener('click', octopus.toggleAdminForm.bind(octopus));
+      this.cancelButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        view.showAdminForm(); // this works because 'cancel' can only be clicked when admin form is visible
+      });
       // this.submitButton.addEventListener('click', octopus.updateCat.bind(octopus));
+      // render list of cat names and default cat
       this.renderCatList(catList);
       this.renderCat(firstCat);
     },
